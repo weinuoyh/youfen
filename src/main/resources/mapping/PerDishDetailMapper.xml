@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.moerlong.youfen.dao.PerDishDetailDao" >
+  <resultMap id="BaseResultMap" type="com.moerlong.youfen.pojo.PerDishDetail" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="dish_id" property="dishId" jdbcType="VARCHAR" />
+    <result column="case_time" property="caseTime" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="perf_info" property="perfInfo" jdbcType="VARCHAR" />
+    <result column="perf_basis_no" property="perfBasisNo" jdbcType="VARCHAR" />
+    <result column="related_party" property="relatedParty" jdbcType="VARCHAR" />
+    <result column="judg_cout_name" property="judgCoutName" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="exec_cout_name" property="execCoutName" jdbcType="VARCHAR" />
+    <result column="conc_situ" property="concSitu" jdbcType="VARCHAR" />
+    <result column="obligation" property="obligation" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="exec_name" property="execName" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="case_num" property="caseNum" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="VARCHAR" />
+    <result column="data_type" property="dataType" jdbcType="VARCHAR" />
+    <result column="opration_user" property="oprationUser" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dish_id, case_time, gender, perf_info, perf_basis_no, related_party, judg_cout_name, 
+    id_card, exec_cout_name, conc_situ, obligation, age, exec_name, province, case_num, 
+    publish_time, data_type, opration_user, create_time, last_modify_time, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from per_dish_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectById" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from per_dish_detail
+    where dish_id = #{dishId,jdbcType=VARCHAR} and is_deleted=1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from per_dish_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.moerlong.youfen.pojo.PerDishDetail" >
+    insert into per_dish_detail (id, dish_id, case_time, 
+      gender, perf_info, perf_basis_no, 
+      related_party, judg_cout_name, id_card, 
+      exec_cout_name, conc_situ, obligation, 
+      age, exec_name, province, 
+      case_num, publish_time, data_type, 
+      opration_user, create_time, last_modify_time, 
+      is_deleted)
+    values (#{id,jdbcType=BIGINT}, #{dishId,jdbcType=VARCHAR}, #{caseTime,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{perfInfo,jdbcType=VARCHAR}, #{perfBasisNo,jdbcType=VARCHAR}, 
+      #{relatedParty,jdbcType=VARCHAR}, #{judgCoutName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{execCoutName,jdbcType=VARCHAR}, #{concSitu,jdbcType=VARCHAR}, #{obligation,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{execName,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{caseNum,jdbcType=VARCHAR}, #{publishTime,jdbcType=VARCHAR}, #{dataType,jdbcType=VARCHAR}, 
+      #{oprationUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.moerlong.youfen.pojo.PerDishDetail" >
+    insert into per_dish_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dishId != null" >
+        dish_id,
+      </if>
+      <if test="caseTime != null" >
+        case_time,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="perfInfo != null" >
+        perf_info,
+      </if>
+      <if test="perfBasisNo != null" >
+        perf_basis_no,
+      </if>
+      <if test="relatedParty != null" >
+        related_party,
+      </if>
+      <if test="judgCoutName != null" >
+        judg_cout_name,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="execCoutName != null" >
+        exec_cout_name,
+      </if>
+      <if test="concSitu != null" >
+        conc_situ,
+      </if>
+      <if test="obligation != null" >
+        obligation,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="execName != null" >
+        exec_name,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="caseNum != null" >
+        case_num,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="dataType != null" >
+        data_type,
+      </if>
+      <if test="oprationUser != null" >
+        opration_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dishId != null" >
+        #{dishId,jdbcType=VARCHAR},
+      </if>
+      <if test="caseTime != null" >
+        #{caseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="perfInfo != null" >
+        #{perfInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="perfBasisNo != null" >
+        #{perfBasisNo,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedParty != null" >
+        #{relatedParty,jdbcType=VARCHAR},
+      </if>
+      <if test="judgCoutName != null" >
+        #{judgCoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="execCoutName != null" >
+        #{execCoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="concSitu != null" >
+        #{concSitu,jdbcType=VARCHAR},
+      </if>
+      <if test="obligation != null" >
+        #{obligation,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="execName != null" >
+        #{execName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="caseNum != null" >
+        #{caseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="oprationUser != null" >
+        #{oprationUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.moerlong.youfen.pojo.PerDishDetail" >
+    update per_dish_detail
+    <set >
+      <if test="dishId != null" >
+        dish_id = #{dishId,jdbcType=VARCHAR},
+      </if>
+      <if test="caseTime != null" >
+        case_time = #{caseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="perfInfo != null" >
+        perf_info = #{perfInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="perfBasisNo != null" >
+        perf_basis_no = #{perfBasisNo,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedParty != null" >
+        related_party = #{relatedParty,jdbcType=VARCHAR},
+      </if>
+      <if test="judgCoutName != null" >
+        judg_cout_name = #{judgCoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="execCoutName != null" >
+        exec_cout_name = #{execCoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="concSitu != null" >
+        conc_situ = #{concSitu,jdbcType=VARCHAR},
+      </if>
+      <if test="obligation != null" >
+        obligation = #{obligation,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="execName != null" >
+        exec_name = #{execName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="caseNum != null" >
+        case_num = #{caseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        data_type = #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="oprationUser != null" >
+        opration_user = #{oprationUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.moerlong.youfen.pojo.PerDishDetail" >
+    update per_dish_detail
+    set dish_id = #{dishId,jdbcType=VARCHAR},
+      case_time = #{caseTime,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      perf_info = #{perfInfo,jdbcType=VARCHAR},
+      perf_basis_no = #{perfBasisNo,jdbcType=VARCHAR},
+      related_party = #{relatedParty,jdbcType=VARCHAR},
+      judg_cout_name = #{judgCoutName,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      exec_cout_name = #{execCoutName,jdbcType=VARCHAR},
+      conc_situ = #{concSitu,jdbcType=VARCHAR},
+      obligation = #{obligation,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      exec_name = #{execName,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      case_num = #{caseNum,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=VARCHAR},
+      data_type = #{dataType,jdbcType=VARCHAR},
+      opration_user = #{oprationUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

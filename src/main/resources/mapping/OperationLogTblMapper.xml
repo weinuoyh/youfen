@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.moerlong.youfen.dao.OperationLogTblDao" >
+  <resultMap id="BaseResultMap" type="com.moerlong.youfen.pojo.OperationLogTbl" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="api_name" property="apiName" jdbcType="VARCHAR" />
+    <result column="api_uri" property="apiUri" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="is_succeed" property="isSucceed" jdbcType="BIT" />
+    <result column="spend_amount" property="spendAmount" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.moerlong.youfen.pojo.OperationLogTbl" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, api_name, api_uri, create_time, is_succeed
+  </sql>
+  <sql id="Blob_Column_List" >
+    message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from operation_log_tbl
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from operation_log_tbl
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.moerlong.youfen.pojo.OperationLogTbl" >
+    insert into operation_log_tbl (id, api_name, api_uri, 
+      create_time, is_succeed, message
+      )
+    values (#{id,jdbcType=BIGINT}, #{apiName,jdbcType=VARCHAR}, #{apiUri,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{isSucceed,jdbcType=BIT}, #{message,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.moerlong.youfen.pojo.OperationLogTbl" >
+    insert into operation_log_tbl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="apiName != null" >
+        api_name,
+      </if>
+      <if test="apiUri != null" >
+        api_uri,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="isSucceed != null" >
+        is_succeed,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="spendAmount != null" >
+        spend_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="apiName != null" >
+        #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUri != null" >
+        #{apiUri,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSucceed != null" >
+        #{isSucceed,jdbcType=BIT},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="spendAmount != null" >
+        #{spendAmount,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.moerlong.youfen.pojo.OperationLogTbl" >
+    update operation_log_tbl
+    <set >
+      <if test="apiName != null" >
+        api_name = #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUri != null" >
+        api_uri = #{apiUri,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSucceed != null" >
+        is_succeed = #{isSucceed,jdbcType=BIT},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.moerlong.youfen.pojo.OperationLogTbl" >
+    update operation_log_tbl
+    set api_name = #{apiName,jdbcType=VARCHAR},
+      api_uri = #{apiUri,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      is_succeed = #{isSucceed,jdbcType=BIT},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.moerlong.youfen.pojo.OperationLogTbl" >
+    update operation_log_tbl
+    set api_name = #{apiName,jdbcType=VARCHAR},
+      api_uri = #{apiUri,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      is_succeed = #{isSucceed,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,109 @@
+server:
+  port: 8095
+  tomcat:
+    max-http-header-size: 8192
+
+
+eureka:
+  instance:
+    #定义服务失效时间，单位：秒
+    lease-expiration-duration-in-seconds: 90
+    #定义服务心跳间隔，单位：秒
+    lease-renewal-interval-in-seconds: 30
+    instanceId: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+    #instance-id: 10.3.1.12:8095
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      #defaultZone: http://10.3.1.12:8880/eureka/
+      defaultZone: http://10.1.2.231:8761/eureka/
+spring:
+  application:
+    name: youfen
+  datasource:
+    name: youfen
+    #url: jdbc:mysql://10.3.1.12:3308/ace_data?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/ace_data?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false
+    username: root
+    password: weinuo11
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 90000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  mail:
+    host: smtp.exmail.qq.com
+    username: noreply@moerlong.com
+    password: I@MR#zn*SBX3
+    #    port: 25
+    protocol: smtp
+    default-encoding: UTF-8
+  oreo:
+    #account: qingnuo156
+    account: shenzhenqingnuotest
+    cost:
+      validation.name.idcard: 21 #姓名、身份证二要素查询费用
+      validation.name.cellphone.yd: 35 #姓名、手机号（移动）二要素查询费用
+      validation.name.cellphone.lt: 43 #姓名、手机号（联通）二要素查询费用
+      validation.name.cellphone.dx: 43 #姓名、手机号（电信）二要素查询费用
+      validation.name.bankcard: 17 #姓名、银行卡二要素查询费用
+      validation.cellphone.bankcard: 17 #手机号、银行卡二要素查询费用
+      validation.name.idcard.bankcard: 25 #姓名、身份证、银行卡三要素查询费用
+      validation.name.idcard.bankcard.cellphone: 25 #姓名、身份证、银行卡、手机号四要素查询费用
+      validation.idcard.bankcard: 17 #身份证、银行卡二要素查询费用
+      validation.name.idcard.cellphone.yd: 43 #姓名、身份证、手机号（移动）三要素查询费用
+      validation.name.idcard.cellphone.lt: 43 #姓名、身份证、手机号（联通）三要素查询费用
+      validation.name.idcard.cellphone.dx: 35 #姓名、身份证、手机号（电信）三要素查询费用
+      validation.name.validation.yd: 43   #姓名、身份证、手机号（移动）三要素查询费用
+      validation.name.validation.lt: 43 #姓名、身份证、手机号（联通）三要素查询费用
+      validation.name.validation.dx: 35 #姓名、身份证、手机号（电信）三要素查询费用
+      acedata.user.attribution:  #手机归属地
+      acedata.user.detailquery:  #个人法院失信（详情）
+      acedata.user.simplequery:  #个人法院失信（简项）
+      acedata.user.creditinfoall: 140 #多头借贷全量核查
+      acedata.user.overdueloan: 70 #多头借贷逾期核查
+      acedata.user.verificationB: 85 #个人银联账单接口开发
+      acedata.user.creditinfo: 57 #多头借贷信息核查接口开发
+      validation.bankcard: 100 #银行卡有效性验证接口查询费用
+
+###########################  系统参数   ###############################
+sysparams:
+  acedata :
+    serverHost: https://api.acedata.com.cn:2443
+    methodAndServiceMaps:
+      'acedata.user.validation.v1' : '{"method":"/oreo/personal/validation/name/idcard/cellphone","serviceName":"identityVerificationImpl"}' #姓名、手机号、身份证三要素
+      'acedata.user.attribution.v1' : '{"method":"/oreo/personal/cellphone/attribution","serviceName":"phoneNumberVerificationImpl"}' #手机号归属地
+      'acedata.user.creditinfoall.v1' : '{"method":"/oreo/personal/creditInfoAll","serviceName":"personalCreditFraudImpl"}' #多头借贷全量核查
+      'acedata.user.overdueloan.v1' : '{"method":"/oreo/personal/overdueLoan","serviceName":"personalCreditFraudImpl"}' #多头借贷逾期核查
+      'acedata.user.creditinfo.v1' : '{"method":"/oreo/personal/creditInfo","serviceName":"personalCreditFraudImpl"}' #多头借贷信息核查
+      'acedata.user.verificationB.v1' : '{"method":"/oreo/personal/bill/verificationB","serviceName":"personalCreditFraudImpl"}' #个人银联账单接口开发
+      'acedata.user.simplequery.v1' : '{"method":"/oreo/verbose/personal/overall/complaint/query","serviceName":"judicialInvolvementImpl"}' #个人法院失信（简项）
+      'acedata.user.detailquery.v1' : '{"method":"/oreo/enterprise/litigation/detail","serviceName":"judicialInvolvementImpl"}' #个人法院失信（详情）
+      'acedata.user.validation.name.idcard.v1' : '{"method":"/oreo/personal/validation/name/idcard","serviceName":"validationInfoServiceImpl"}' #姓名、身份证二要素
+      'acedata.user.validation.name.cellphone.v1' : '{"method":"/oreo/personal/validation/name/cellphone","serviceName":"validationInfoServiceImpl"}' #姓名、手机号二要素
+      'acedata.user.validation.name.bankcard.v1' : '{"method":"/oreo/personal/validation/name/bankcard","serviceName":"validationInfoServiceImpl"}' #姓名、银行卡二要素
+      'acedata.user.validation.cellphone.bankcard.v1' : '{"method":"/oreo/personal/validation/cellphone/bankcard","serviceName":"validationInfoServiceImpl"}' #手机号、银行卡二要素
+      'acedata.user.validation.name.idcard.bankcard.v1' : '{"method":"/oreo/personal/validation/name/idcard/bankcard","serviceName":"validationInfoServiceImpl"}' #姓名、身份证、银行卡三要素
+      'acedata.user.validation.name.idcard.bankcard.cellphone.v1' : '{"method":"/oreo/personal/validation/name/idcard/bankcard/cellphone","serviceName":"validationInfoServiceImpl"}' #姓名、手机号、身份证、银行卡三要素
+      'acedata.user.validation.idcard.bankcard.v1' : '{"method":"/oreo/personal/validation/idcard/bankcard","serviceName":"validationInfoServiceImpl"}' #身份证、银行卡三要素
+      'acedata.user.validation.name.idcard.cellphone.v1' : '{"method":"/oreo/personal/validation/name/idcard/cellphone","serviceName":"validationInfoServiceImpl"}' #姓名、手机号、身份证三要素
+      'acedata.user.validation.bankcard.v1' : '{"method":"/oreo/bankCard/validity","serviceName":"validationBankCardServiceImpl"}' #银行卡有效性验证
+      #string: { "resCode": "0000",  "resMsg": "提交成功","data": { "statusCode": "2012", "statusMsg": "查询成功","result": { "totalCount": "2", "docList": [ { "docId": "c2016110108zhi9124_t20160901_pxmkjyxzrgs@AVuPk-bVz6pKxOU13mlw","caseTime": "2016 年 09 月 01 日", "content": "...551385082 小米科技有限责任公司...", "title": "小米科技有限责任公司", "dataType": "执行公告", " matchRatio": "65%" },{"docId": "c2016110108zhi9124_t20160901_pxmkjyxzrgs@AVuPk-bVz6pKxOU13mlw", "caseTime": "2016 年 09 月 01 日", "content": "...551385082 小米科技有限责任公司...", "title": "小米科技有限责任公司", "dataType": "执行公告", " matchRatio": "65%"}] } } }
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  typeAliasesPackage: com.moerlong.youfen.pojo
+  checkConfigLocation: false
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  file: /home/log/acedata/acedata.log

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.moerlong.youfen.dao.OverduleInfoDao" >
+  <resultMap id="BaseResultMap" type="com.moerlong.youfen.pojo.OverduleInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="cycle" property="cycle" jdbcType="INTEGER" />
+    <result column="platform_type" property="platformType" jdbcType="BIT" />
+    <result column="platform_type_name" property="platformTypeName" jdbcType="VARCHAR" />
+    <result column="platform_code" property="platformCode" jdbcType="VARCHAR" />
+    <result column="platform_name" property="platformName" jdbcType="VARCHAR" />
+    <result column="overdue_time" property="overdueTime" jdbcType="TIMESTAMP" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <result column="opration_user" property="oprationUser" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, mobile, cycle, platform_type, platform_type_name, platform_code, platform_name, 
+    overdue_time, count, money, opration_user, create_time, last_modify_time, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from overdule_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByMobileAndCycle" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from overdule_info
+    where mobile = #{mobile,jdbcType=VARCHAR} and cycle=#{cycle} and is_deleted=1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from overdule_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.moerlong.youfen.pojo.OverduleInfo" >
+    insert into overdule_info (id, mobile, cycle, 
+      platform_type, platform_type_name, platform_code, 
+      platform_name, overdue_time, count, 
+      money, opration_user, create_time, 
+      last_modify_time, is_deleted)
+    values (#{id,jdbcType=BIGINT}, #{mobile,jdbcType=VARCHAR}, #{cycle,jdbcType=INTEGER}, 
+      #{platformType,jdbcType=BIT}, #{platformTypeName,jdbcType=VARCHAR}, #{platformCode,jdbcType=VARCHAR}, 
+      #{platformName,jdbcType=VARCHAR}, #{overdueTime,jdbcType=TIMESTAMP}, #{count,jdbcType=INTEGER}, 
+      #{money,jdbcType=VARCHAR}, #{oprationUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.moerlong.youfen.pojo.OverduleInfo" >
+    insert into overdule_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="cycle != null" >
+        cycle,
+      </if>
+      <if test="platformType != null" >
+        platform_type,
+      </if>
+      <if test="platformTypeName != null" >
+        platform_type_name,
+      </if>
+      <if test="platformCode != null" >
+        platform_code,
+      </if>
+      <if test="platformName != null" >
+        platform_name,
+      </if>
+      <if test="overdueTime != null" >
+        overdue_time,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="oprationUser != null" >
+        opration_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="cycle != null" >
+        #{cycle,jdbcType=INTEGER},
+      </if>
+      <if test="platformType != null" >
+        #{platformType,jdbcType=BIT},
+      </if>
+      <if test="platformTypeName != null" >
+        #{platformTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null" >
+        #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="platformName != null" >
+        #{platformName,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueTime != null" >
+        #{overdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="oprationUser != null" >
+        #{oprationUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.moerlong.youfen.pojo.OverduleInfo" >
+    update overdule_info
+    <set >
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="cycle != null" >
+        cycle = #{cycle,jdbcType=INTEGER},
+      </if>
+      <if test="platformType != null" >
+        platform_type = #{platformType,jdbcType=BIT},
+      </if>
+      <if test="platformTypeName != null" >
+        platform_type_name = #{platformTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null" >
+        platform_code = #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="platformName != null" >
+        platform_name = #{platformName,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueTime != null" >
+        overdue_time = #{overdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="oprationUser != null" >
+        opration_user = #{oprationUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.moerlong.youfen.pojo.OverduleInfo" >
+    update overdule_info
+    set mobile = #{mobile,jdbcType=VARCHAR},
+      cycle = #{cycle,jdbcType=INTEGER},
+      platform_type = #{platformType,jdbcType=BIT},
+      platform_type_name = #{platformTypeName,jdbcType=VARCHAR},
+      platform_code = #{platformCode,jdbcType=VARCHAR},
+      platform_name = #{platformName,jdbcType=VARCHAR},
+      overdue_time = #{overdueTime,jdbcType=TIMESTAMP},
+      count = #{count,jdbcType=INTEGER},
+      money = #{money,jdbcType=VARCHAR},
+      opration_user = #{oprationUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

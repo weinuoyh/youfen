@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.moerlong.youfen.dao.CreditDetailInfoDao">
+    <resultMap id="BaseResultMap" type="com.moerlong.youfen.pojo.CreditDetailInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="cycle" property="cycle" jdbcType="INTEGER"/>
+        <result column="prov_name" property="provName" jdbcType="VARCHAR"/>
+        <result column="city_name" property="cityName" jdbcType="VARCHAR"/>
+        <result column="opration_user" property="oprationUser" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.moerlong.youfen.pojo.CreditDetailInfo" extends="BaseResultMap">
+        <result column="data" property="data" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, mobile, cycle, prov_name, city_name, opration_user, create_time, last_modify_time, 
+    is_deleted
+  </sql>
+    <sql id="Blob_Column_List">
+    data
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from credit_detail_info
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByMobileAndCycle" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from credit_detail_info
+        where mobile= #{mobile,jdbcType=VARCHAR} and cycle=#{cycle} and is_deleted=1;
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from credit_detail_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.moerlong.youfen.pojo.CreditDetailInfo">
+    insert into credit_detail_info (id, mobile, cycle, 
+      prov_name, city_name, opration_user, 
+      create_time, last_modify_time, is_deleted, 
+      data)
+    values (#{id,jdbcType=BIGINT}, #{mobile,jdbcType=VARCHAR}, #{cycle,jdbcType=INTEGER}, 
+      #{provName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{oprationUser,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT}, 
+      #{data,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.moerlong.youfen.pojo.CreditDetailInfo">
+        insert into credit_detail_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="cycle != null">
+                cycle,
+            </if>
+            <if test="provName != null">
+                prov_name,
+            </if>
+            <if test="cityName != null">
+                city_name,
+            </if>
+            <if test="oprationUser != null">
+                opration_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="data != null">
+                data,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="cycle != null">
+                #{cycle,jdbcType=INTEGER},
+            </if>
+            <if test="provName != null">
+                #{provName,jdbcType=VARCHAR},
+            </if>
+            <if test="cityName != null">
+                #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="oprationUser != null">
+                #{oprationUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="data != null">
+                #{data,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.moerlong.youfen.pojo.CreditDetailInfo">
+        update credit_detail_info
+        <set>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="cycle != null">
+                cycle = #{cycle,jdbcType=INTEGER},
+            </if>
+            <if test="provName != null">
+                prov_name = #{provName,jdbcType=VARCHAR},
+            </if>
+            <if test="cityName != null">
+                city_name = #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="oprationUser != null">
+                opration_user = #{oprationUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="data != null">
+                data = #{data,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.moerlong.youfen.pojo.CreditDetailInfo">
+    update credit_detail_info
+    set mobile = #{mobile,jdbcType=VARCHAR},
+      cycle = #{cycle,jdbcType=INTEGER},
+      prov_name = #{provName,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      opration_user = #{oprationUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      data = #{data,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.moerlong.youfen.pojo.CreditDetailInfo">
+    update credit_detail_info
+    set mobile = #{mobile,jdbcType=VARCHAR},
+      cycle = #{cycle,jdbcType=INTEGER},
+      prov_name = #{provName,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      opration_user = #{oprationUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
