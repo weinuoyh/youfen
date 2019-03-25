@@ -22,8 +22,9 @@ spring:
     name: youfen
   datasource:
     name: youfen
-    #url: jdbc:mysql://10.3.1.12:3308/ace_data?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false
-    url: jdbc:mysql://localhost:3306/ace_data?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false
+#    url: jdbc:mysql://10.3.1.12:3308/ace_data?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false
+#    url: jdbc:mysql://localhost:3306/ace_data?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false
+    url: jdbc:mysql://192.168.10.130:3306/ace_data?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false
     username: root
     password: weinuo11
     type: com.alibaba.druid.pool.DruidDataSource
