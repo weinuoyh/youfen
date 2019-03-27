@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 此xml在spring-boot-1.5.3.RELEASE.jar里 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <!-- 开启后可以通过jmx动态控制日志级别(springboot Admin的功能) -->
+    <!--<jmxConfigurator/>-->
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>/usr/log/youfen/stdout.log</File>
+        <!--<File>/home/log/acedata/stdout.log</File>-->
+        <!--<File>C:/home/dev/log/acedata/stdout.log</File>-->
+        <encoder>
+            <pattern>%date [%level] [%thread] %logger{60} [%file : %line] %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 添加.gz 历史日志会启用压缩 大大缩小日志文件所占空间 -->
+            <fileNamePattern>/home/dev/log/acedata/stdout.log.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--<fileNamePattern>/home/log/acedata/stdout.log.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+            <!--<fileNamePattern>C:/home/dev/log/acedata/stdout.log.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+            <maxHistory>30</maxHistory><!--  保留30天日志 -->
+        </rollingPolicy>
+    </appender>
+
+    <!--<logger name="com.moerlong.moerlongzhengxinclient.huifawang.dao" level="DEBUG" />-->
+
+    <!--<logger name="org.springframework" level="error"/>-->
+    <!--<logger name="jdbc.connection" level="OFF"/>-->
+    <!--<logger name="org.apache" level="error"/>-->
+    <!--<logger name="com.alibaba" level="error"/>-->
+    <!--<logger name="org.apache.kafka.clients.producer.ProducerConfig" level="warn"/>-->
+
+    <!--这个改为DEBUG则会打印最详细的日志，包括mybatis的sql语句（量太大建议开发测试时才用）-->
+    <root level="INFO">
+    <!--<root level="DEBUG">-->
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
